@@ -1,12 +1,12 @@
-from close_to_zero import *
-from merge import *
+from close_to_zero import zer, close
+from merge import merge
 
 lst = [-5,9,6,-8]
 assert zer(lst) == [5,9,6,8]
-assert close(zer(lst)) == [-5]
+assert close(lst, zer(lst)) == [-5]
 lst =  [-1, 2, -5, 1, -1]
 assert zer(lst) == [1,2,5,1,1]
-assert close(zer(lst)) == [-1,1,-1]
+assert close(lst, zer(lst)) == [-1,1,-1]
 
 
 lst1 = [1, 1, 10, 5]

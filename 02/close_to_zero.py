@@ -11,6 +11,6 @@ def close(lst, lst_abs):
             new_lst.append(lst[i])
     
     return new_lst
-lst = [-5,9,6,-8]
-print(*zer(lst))
-print(*close(lst, zer(lst)))
+# lst = [-1, 2, -5, 1, -1]
+# print(*zer(lst))
+# print(*close(lst, zer(lst)))
