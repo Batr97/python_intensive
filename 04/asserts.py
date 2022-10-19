@@ -29,3 +29,12 @@ a = (lst1 - lst2)
 assert a == Customlist([-3, -3, -3, 4])
 a = (lst2 - lst1)
 assert a == Customlist([3, 3, 3, -4])
+
+check = []
+for i in lst2:
+    check.append(i)
+assert check == [4, 5, 6]
+check = []
+for i in lst1:
+    check.append(i)
+assert check == [1, 2, 3, 4]

@@ -1,75 +1,82 @@
 class Customlist(list):
-    def __init__(self, lst):
-        super().__init__()
-        self.lst = lst
-
     def __str__(self):
-        return f'list: {self.lst}, sum:{self.compare(self.lst)}'
+        lst = self.copy()
+        return f'{lst} has the sum {sum(lst)}'
 
-    def compare(self, lst):
-        return sum(lst)
+    def compare(self):
+        return sum(self)
 
-    def extension(self, lst, n):
-        return lst + [0] * n
+    def extension(self, n):
+        lst = self.copy()
+        lst.extend([0]*n)
+        return lst
 
     def __add__(self, other):
         if not isinstance(other, Customlist):
             other = Customlist(other)
-        if len(other.lst) < len(self.lst):
-            n = len(self.lst) - len(other.lst)
-            other.lst = self.extension(other.lst, n)
-        elif len(other.lst) > len(self.lst):
-            n = len(other.lst) - len(self.lst)
-            self.lst = self.extension(self.lst, n)
-        return Customlist([a_i + b_i for a_i, b_i in zip(self.lst, other.lst)])
+        lst = self.copy()
+        lst2 = other.copy()
+        if len(other) < len(self):
+            n = len(self) - len(other)
+            lst2 = other.extension(n)
+        elif len(other) > len(self):
+            n = len(other) - len(self)
+            lst = self.extension(n)
+        return Customlist([a_i + b_i for a_i, b_i in zip(lst, lst2)])
 
     def __radd__(self, other):
         if not isinstance(other, Customlist):
             other = Customlist(other)
-        if len(other.lst) < len(self.lst):
-            n = len(self.lst) - len(other.lst)
-            other.lst = self.extension(other.lst, n)
-        elif len(other.lst) > len(self.lst):
-            n = len(other.lst) - len(self.lst)
-            self.lst = self.extension(self.lst, n)
-        return Customlist([a_i + b_i for a_i, b_i in zip(self.lst, other.lst)])
+        lst = self.copy()
+        lst2 = other.copy()
+        if len(other) < len(self):
+            N = len(self) - len(other)
+            lst2 = other.extension(N)
+        elif len(other) > len(self):
+            N = len(other) - len(self)
+            lst = self.extension(N)
+        return Customlist([a_i + b_i for a_i, b_i in zip(lst, lst2)])
 
     def __sub__(self, other):
         if not isinstance(other, Customlist):
             other = Customlist(other)
-        if len(other.lst) < len(self.lst):
-            n = len(self.lst) - len(other.lst)
-            other.lst = self.extension(other.lst, n)
-        elif len(other.lst) > len(self.lst):
-            n = len(other.lst) - len(self.lst)
-            self.lst = self.extension(self.lst, n)
-        return Customlist([a_i - b_i for a_i, b_i in zip(self.lst, other.lst)])
+        lst = self.copy()
+        lst2 = other.copy()
+        if len(other) < len(self):
+            N = len(self) - len(other)
+            lst2 = other.extension(N)
+        elif len(other) > len(self):
+            N = len(other) - len(self)
+            lst = self.extension(N)
+        return Customlist([a_i - b_i for a_i, b_i in zip(lst, lst2)])
 
     def __rsub__(self, other):
         if not isinstance(other, Customlist):
             other = Customlist(other)
-        if len(other.lst) < len(self.lst):
-            N = len(self.lst) - len(other.lst)
-            other.lst = self.extension(other.lst, N)
-        elif len(other.lst) > len(self.lst):
-            N = len(other.lst) - len(self.lst)
-            self.lst = self.extension(self.lst, N)
-        return Customlist([a_i - b_i for a_i, b_i in zip(other.lst, self.lst)])
+        lst = self.copy()
+        lst2 = other.copy()
+        if len(other) < len(self):
+            N = len(self) - len(other)
+            lst2 = other.extension(N)
+        elif len(other) > len(self):
+            N = len(other) - len(self)
+            lst = self.extension(N)
+        return Customlist([a_i - b_i for a_i, b_i in zip(lst2, lst)])
 
     def __eq__(self, other):
-        return self.compare(self.lst) == self.compare(other.lst)
+        return self.compare() == other.compare()
 
     def __ne__(self, other):
-        return self.compare(self.lst) != self.compare(other.lst)
+        return self.compare() != other.compare()
 
     def __lt__(self, other):
-        return self.compare(self.lst) < self.compare(other.lst)
+        return self.compare() < other.compare()
 
     def __le__(self, other):
-        return self.compare(self.lst) <= self.compare(other.lst)
+        return self.compare() <= other.compare()
 
     def __gt__(self, other):
-        return self.compare(self.lst) > self.compare(other.lst)
+        return self.compare() > other.compare()
 
     def __ge__(self, other):
-        return self.compare(self.lst) >= self.compare(other.lst)
+        return self.compare() >= other.compare()
