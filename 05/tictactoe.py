@@ -12,17 +12,12 @@ class TicTacGame:
         print("---------")
         print(self.board[6] + " | " + self.board[7] + " | " + self.board[8])
 
-    # take player input
-    def playerInput(self, val):
-        # inp = int(input("Select a spot 1-9: "))
+    def player_input(self, val):
         inp = val
-        print(inp)
         if inp < 0 or inp > 9:
-            raise OverflowError('wrong input')
-            # return 'wrong input'
+            return 'wrong input'
         elif self.board[inp-1] != "-":
-            raise OverflowError('Oops player is already at that spot')
-            # return "Oops player is already at that spot"
+            return "Oops player is already at that spot"
         else:
             self.board[inp-1] = self.player
 
@@ -65,38 +60,34 @@ class TicTacGame:
     def win(self,):
         if self.horizont():
             self.show_board()
-            # print(f"The winner is {self.winner}!")
             self.run = False
             return f'The winner along the row is {self.winner}!'
 
         elif self.vertical():
             self.show_board()
-            # print(f"The winner is {self.winner}!")
             self.run = False
             return f'The winner along the column is {self.winner}!'
 
         elif self.diagonal():
             self.show_board()
-            # print(f"The winner is {self.winner}!")
             self.run = False
             return f'The winner along the diagonal is {self.winner}!'
 
         elif "-" not in self.board:
             self.show_board()
-            # print("It is a tie!")
             self.run = False
             return 'It is a tie!!'
 
+    def play(self):
+        self.run = True
+        while self.run:
+            self.show_board()
+            step = int(input())
+            turn = self.player_input(step)
+            while (turn == 'wrong input') or turn == ('Oops player is already at that spot'):
+                step = int(input())
+                turn = self.player_input(step)
+            win = self.win()
+            self.switch()
+        return win
 
-# if __name__ == "__main__":
-#     game = TicTacGame()
-#     while game.run:
-#         game.show_board()
-#         game.playerInput()
-#         print(game.win())
-#         # game.checkIfTie()
-#         game.switch()
-#         # game.playerInput()
-#         # game.win()
-#         # game.checkIfTie()
-#         # game.switch()
